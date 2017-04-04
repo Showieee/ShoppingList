@@ -7,7 +7,7 @@ using WebService.Models;
 
 namespace WebService.Database
 {
-    public class PostgreSQLContext : DbContext
+    public class PostgreSQLContext : DbContext, IDbContext
     {
         public PostgreSQLContext() : base(nameOrConnectionString: "PostgreSQLConnectionString")
         {
@@ -25,7 +25,7 @@ namespace WebService.Database
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserInfo> Users { get; set; }
 
         public DbSet<ProductRequest> ProductRequests { get; set; }
 

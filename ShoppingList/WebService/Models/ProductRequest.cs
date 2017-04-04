@@ -27,10 +27,6 @@ namespace WebService.Models
         public string Details { get; set; }
 
         [Required]
-        [Column("is_delivered")]
-        public bool IsDelivered { get; set; }
-
-        [Required]
         [Column("site_id")]
         [ForeignKey("DeliveryLocation")]
         public int SiteId { get; set; }
@@ -39,8 +35,12 @@ namespace WebService.Models
         [ForeignKey("FulfilledByDriver")]
         public int DriverId { get; set; }
 
+        [Required]
+        [Column("is_delivered")]
+        public bool IsDelivered { get; set; }
+
         public virtual DeliveryLocation DeliveryLocation { get; set; }
 
-        public virtual User FulfilledByDriver { get; set; }
+        public virtual UserInfo FulfilledByDriver { get; set; }
     }
 }

@@ -7,22 +7,14 @@ using System.Web;
 
 namespace WebService.Models
 {
-    [Table("users", Schema = "public")]
-    public class User
+    [Table("user_info", Schema = "public")]
+    public class UserInfo
     {
         [Key]
         [Required]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-
-        [Required]
-        [Column("username")]
-        public string Username { get; set; }
-
-        [Required]
-        [Column("password_hash")]
-        public string PasswordHash { get; set; }
 
         [Required]
         [Column("first_name")]
@@ -40,7 +32,9 @@ namespace WebService.Models
 
         public virtual ICollection<ProductRequest> Products { get; set; }
 
-        public User()
+        public virtual ICollection<LoginInfo> LoginInfo { get; set; }
+
+        public UserInfo()
         {
             Products = new HashSet<ProductRequest>();
         }

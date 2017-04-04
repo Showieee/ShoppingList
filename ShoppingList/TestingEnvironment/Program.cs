@@ -14,7 +14,7 @@ namespace TestingEnvironment
         {
             using (PostgreSQLContext ctx = new PostgreSQLContext())
             {
-                User user = new User();
+                UserInfo user = new UserInfo();
                 user.Username = "antochsi";
                 user.PasswordHash = "parolameasmechera";
                 user.FirstName = "Silviu";
