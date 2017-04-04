@@ -11,6 +11,7 @@ namespace WebService.Models
     public class User
     {
         [Key]
+        [Required]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -36,5 +37,12 @@ namespace WebService.Models
         [Required]
         [Column("is_driver")]
         public bool IsDriver { get; set; }
+
+        public virtual ICollection<ProductRequest> Products { get; set; }
+
+        public User()
+        {
+            Products = new HashSet<ProductRequest>();
+        }
     }
 }
