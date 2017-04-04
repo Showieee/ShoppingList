@@ -13,7 +13,7 @@ namespace WebService.Models
         [Key]
         [Required]
         [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [ForeignKey("LoginInfo")]
         public int ID { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace WebService.Models
 
         public virtual ICollection<ProductRequest> Products { get; set; }
 
-        public virtual ICollection<LoginInfo> LoginInfo { get; set; }
+        public virtual LoginInfo LoginInfo { get; set; }
 
         public UserInfo()
         {

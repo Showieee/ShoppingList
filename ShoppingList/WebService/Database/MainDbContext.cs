@@ -7,16 +7,16 @@ using WebService.Models;
 
 namespace WebService.Database
 {
-    public class PostgreSQLContext : DbContext, IDbContext
+    public class MainDbContext : DbContext
     {
-        public PostgreSQLContext() : base(nameOrConnectionString: "PostgreSQLConnectionString")
+        public MainDbContext() : base(nameOrConnectionString: "PostgreSQLConnectionString")
         {
-            System.Data.Entity.Database.SetInitializer<PostgreSQLContext>(null);
+            System.Data.Entity.Database.SetInitializer<MainDbContext>(null);
         }
 
-        public PostgreSQLContext(string connectionString) : base(nameOrConnectionString: connectionString)
+        public MainDbContext(string connectionString) : base(nameOrConnectionString: connectionString)
         {
-            System.Data.Entity.Database.SetInitializer<PostgreSQLContext>(null);
+            System.Data.Entity.Database.SetInitializer<MainDbContext>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,7 +25,9 @@ namespace WebService.Database
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<UserInfo> Users { get; set; }
+        public DbSet<LoginInfo> LoginInfo { get; set; }
+
+        public DbSet<UserInfo> UserInfo { get; set; }
 
         public DbSet<ProductRequest> ProductRequests { get; set; }
 

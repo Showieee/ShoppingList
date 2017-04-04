@@ -12,12 +12,15 @@ namespace TestingEnvironment
     {
         static void Main(string[] args)
         {
-            using (PostgreSQLContext ctx = new PostgreSQLContext())
+            using (MainDbContext ctx = new MainDbContext())
             {
-                UserInfo user = new UserInfo();
-                user.Username = "antochsi";
-                user.PasswordHash = "parolameasmechera";
-                user.FirstName = "Silviu";
+                LoginInfo loginInfo = new LoginInfo();
+                loginInfo.Username = "antochsi";
+                loginInfo.Password = "parolameasmechera";
+
+                UserInfo userInfo = new UserInfo();
+                userInfo.FirstName = "Silviu";
+                userInfo.LoginInfo = loginInfo;
 
                 DeliveryLocation site = new DeliveryLocation();
                 site.Name = "Sacele";
@@ -26,7 +29,7 @@ namespace TestingEnvironment
                 ProductRequest request = new ProductRequest();
                 request.Item = "Mancare";
                 request.DeliveryLocation = site;
-                request.FulfilledByDriver = user;
+                request.FulfilledByDriver = userInfo;
 
                 ctx.ProductRequests.Add(request);
                 ctx.SaveChanges();
