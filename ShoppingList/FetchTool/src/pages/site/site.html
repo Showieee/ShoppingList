@@ -1,0 +1,21 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-title>Site</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-item *ngFor="let site of sites" (click) ="goToSite()">
+            <ion-icon name="construct" item-left></ion-icon>
+            {{site.name}}
+        </ion-item>
+    </ion-list>
+
+    <ion-fab right bottom>
+        <button ion-fab color="blue">
+            <ion-icon name="settings"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>
