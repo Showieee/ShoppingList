@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { LoginPage } from '../pages/login/login';
+import { LoginService } from '../pages/login/loginService';
 import { SitePage } from '../pages/site/site';
 import { FetchPage } from '../pages/fetch/fetch';
 import { GlobalService } from '../pages/helpers/globals';
@@ -31,6 +32,6 @@ import { SettingsPage } from '../pages/settings/settings';
         FetchPage,
         SettingsPage
     ],
-    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalService]
+    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, GlobalService, LoginService]
 })
 export class AppModule { }

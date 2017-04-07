@@ -24,10 +24,10 @@ export class SettingsPage {
     constructor(private alertCtrl: AlertController, private nav: NavController, private navParams: NavParams, private myGlobals: GlobalService) {
         this.ipWebService  = localStorage.getItem('ipWebService');
         this.portWebService = localStorage.getItem('portWebService');
-        this.readTimeout =localStorage.getItem('readTimeout');
-        this.writeTimeout = localStorage.getItem('writeTimeout');
-        this.userWebService = localStorage.getItem('userWebService');
-        this.passwordWebService = localStorage.getItem('passwordWebService');
+        //this.readTimeout =localStorage.getItem('readTimeout');
+        //this.writeTimeout = localStorage.getItem('writeTimeout');
+        //this.userWebService = localStorage.getItem('userWebService');
+        //this.passwordWebService = localStorage.getItem('passwordWebService');
     }
 
     //verificarea username si parola
@@ -43,16 +43,16 @@ export class SettingsPage {
         }
         localStorage.setItem('ipWebService', this.ipWebService);
         localStorage.setItem('portWebService', this.portWebService);
-        localStorage.setItem('readTimeout', this.readTimeout);
-        localStorage.setItem('writeTimeout', this.writeTimeout);
-        localStorage.setItem('userWebService', this.userWebService);
-        localStorage.setItem('passwordWebService', this.passwordWebService);
+        //localStorage.setItem('readTimeout', this.readTimeout);
+        //localStorage.setItem('writeTimeout', this.writeTimeout);
+        //localStorage.setItem('userWebService', this.userWebService);
+        //localStorage.setItem('passwordWebService', this.passwordWebService);
         this.myGlobals.webService = this.ipWebService + ':' + this.portWebService;
-        this.myGlobals.readTimeout = this.readTimeout;
-        this.myGlobals.writeTimeout = this.writeTimeout;
-        this.myGlobals.auth = btoa(this.userWebService + ':' + this.passwordWebService);
-        this.myGlobals.userWebService = this.userWebService;
-        this.myGlobals.passwordWebService = this.passwordWebService;
+        //this.myGlobals.readTimeout = this.readTimeout;
+        //this.myGlobals.writeTimeout = this.writeTimeout;
+        //this.myGlobals.auth = btoa(this.userWebService + ':' + this.passwordWebService);
+        //this.myGlobals.userWebService = this.userWebService;
+        //this.myGlobals.passwordWebService = this.passwordWebService;
 
         this.nav.pop();
     }

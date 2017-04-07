@@ -2,6 +2,8 @@
 
 @Injectable()
 export class GlobalService {
+    userId = 1;
+    userFirstName = "Anonymous";
     user = 'Anonymous';
     password = '123';
     webService = 'Nothing';
