@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,10 +15,12 @@ namespace WebServiceHost
 
         static void Main(string[] args)
         {
-
-
             Console.CancelKeyPress += Console_CancelKeyPress;
-            //WebApp.Start<Startup>(url: baseAddress)
+
+            var url = ConfigurationManager.AppSettings["Name3"];
+            Console.WriteLine("Server starting at: " + url);
+
+            WebApp.Start<Startup>(url);
 
             quitEvent.WaitOne();
         }

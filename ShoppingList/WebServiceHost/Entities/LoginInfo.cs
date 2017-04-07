@@ -1,4 +1,4 @@
-﻿namespace Entities
+﻿namespace WebServiceHost.Entities
 {
     public class LoginInfo
     {

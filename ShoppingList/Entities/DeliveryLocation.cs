@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Entities
+﻿namespace Entities
 {
     public class DeliveryLocation
     {
@@ -9,12 +7,5 @@ namespace Entities
         public string Name { get; set; }
 
         public string Address { get; set; }
-
-        public virtual ICollection<ProductRequest> Products { get; set; }
-
-        public DeliveryLocation()
-        {
-            Products = new HashSet<ProductRequest>();
-        }
     }
 }

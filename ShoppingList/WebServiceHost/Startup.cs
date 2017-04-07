@@ -9,9 +9,9 @@ using WebServiceHost.Config;
 
 namespace WebServiceHost
 {
-    class Startup
+    public class Startup
     {
-        void Configuration(IAppBuilder appBuilder)
+        public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);

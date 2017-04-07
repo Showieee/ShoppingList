@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using Entities;
 using WebServiceHost.Database;
+using WebServiceHost.Entities;
 
 namespace TestingEnvironment
 {
@@ -21,7 +21,7 @@ namespace TestingEnvironment
                     var addedRequestId = adminAddNewProductRequest(ctx, addedSiteId);
                     addUserRequestProductAssignment(ctx, loggedInUserId, addedRequestId);
                     cancelProductRequest(ctx, addedRequestId);
-                    cleanUp(ctx);
+                    //cleanUp(ctx);
                 }
                 catch (Exception e)
                 {
@@ -94,11 +94,11 @@ namespace TestingEnvironment
         {
             try
             {
-                DeliveryLocation site = new DeliveryLocation();
+                DeliverySite site = new DeliverySite();
                 site.Name = "Sacele";
                 site.Address = "Bunloc 1, Sediu CIBIN";
 
-                ctx.DeliveryLocations.Add(site);
+                ctx.DeliverySites.Add(site);
                 ctx.SaveChanges();
 
                 return site.ID;
@@ -124,11 +124,11 @@ namespace TestingEnvironment
                 }
                 catch { }
 
-                var existingSite = ctx.DeliveryLocations.FirstOrDefault(site => site.ID == siteId);
+                var existingSite = ctx.DeliverySites.FirstOrDefault(site => site.ID == siteId);
                 if (existingSite == null)
                     throw new Exception("Product request add failure: existing site not found by ID");
 
-                request.DeliveryLocation = existingSite;
+                request.DeliverySite = existingSite;
                 ctx.ProductRequests.Add(request);
                 ctx.SaveChanges();
 
@@ -173,7 +173,7 @@ namespace TestingEnvironment
                 if (existingProductRequest == null)
                     throw new Exception("Cancel product request failure: existing request not found by ID");
 
-                var associatedSiteId = existingProductRequest.DeliveryLocation.ID;
+                var associatedSiteId = existingProductRequest.DeliverySite.ID;
                 var associatedUserId = existingProductRequest.RequestAssignment.UserId;
                 try
                 {
@@ -185,7 +185,7 @@ namespace TestingEnvironment
                     throw new Exception("Cancel product request failure: failed to remove existing product request");
                 }
 
-                var previouslyAssignedSite = ctx.DeliveryLocations.FirstOrDefault(site => site.ID == associatedSiteId);
+                var previouslyAssignedSite = ctx.DeliverySites.FirstOrDefault(site => site.ID == associatedSiteId);
                 if (previouslyAssignedSite == null)
                     throw new Exception("Cancel product request failure: associated site was wrongly deleted");
 
