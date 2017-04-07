@@ -14,9 +14,8 @@ namespace WebServiceHost
 
         static void Main(string[] args)
         {
-
-
             Console.CancelKeyPress += Console_CancelKeyPress;
+
             //WebApp.Start<Startup>(url: baseAddress)
 
             quitEvent.WaitOne();
