@@ -1,58 +1,107 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Entities;
 using WebServiceHost.Database;
+using WebServiceHost.Entities;
 
 namespace WebService.Controllers
 {
     public class AccountController : ApiController
     {
-        [HttpPost]
-        [Route("Login")]
-        [ResponseType(typeof(LoginInfo))]
-        public async Task<IHttpActionResult> Login(string username, string password)
+        [HttpGet]
+        [ActionName("Login")]
+        public ApplicationUser Login(string username, string password)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            using (MainDbContext ctx = new MainDbContext())
+                return null;
+            using (MainDbContext context = new MainDbContext())
             {
                 try
                 {
-                    var loginInfo = await ctx.LoginInfo.FirstOrDefaultAsync(info => info.Username.Equals(username) && info.Password.Equals(password));
+                    var loginInfo = context.LoginInfo.Include(li => li.UserInfo).FirstOrDefault(info => info.Username.Equals(username) && info.Password.Equals(password));
                     if (loginInfo == null)
-                        return BadRequest("Invalid username or password");
+                        return null;
 
-                    return Ok(loginInfo);
+                    return new ApplicationUser()
+                    {
+                        ID = loginInfo.ID,
+                        Username = loginInfo.Username,
+                        FirstName = loginInfo.UserInfo.FirstName,
+                        LastName = loginInfo.UserInfo.LastName,
+                        Telephone = loginInfo.UserInfo.Telephone,
+                        IsDriver = loginInfo.UserInfo.IsDriver
+                    };
                 }
                 catch
                 {
-                    return BadRequest("Error while logging in");
+                    return null;
                 }
             }
         }
 
-        [HttpPut]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(LoginInfo loginInfo)
+        [HttpGet]
+        [ActionName("Test")]
+        public IEnumerable<ApplicationUser> Get()
+        {
+            using (MainDbContext context = new MainDbContext())
+            {
+                return
+                    (
+                    from li
+                    in context.LoginInfo
+                    join ui in context.UserInfo on li.ID equals ui.ID
+                    select new ApplicationUser()
+                    {
+                        ID = li.ID,
+                        Username = li.Username,
+                        FirstName = ui.FirstName,
+                        LastName = ui.LastName,
+                        Telephone = ui.Telephone,
+                        IsDriver = ui.IsDriver
+                    }
+                    ).ToList();
+            }
+        }
+
+        [HttpPost]
+        [ActionName("Register")]
+        [ResponseType(typeof(int))]
+        public int RegisterNewUser([FromBody]ApplicationUser userInfo, string password)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return 0;
 
             using (MainDbContext ctx = new MainDbContext())
             {
                 try
                 {
-                    ctx.LoginInfo.Add(loginInfo);
-                    await ctx.SaveChangesAsync();
+                    UserInfo ui = new UserInfo()
+                    {
+                        FirstName = userInfo.FirstName,
+                        LastName = userInfo.LastName,
+                        Telephone = userInfo.Telephone,
+                        IsDriver = userInfo.IsDriver,
+                    };
+                    LoginInfo li = new LoginInfo()
+                    {
+                        Username = userInfo.Username,
+                        Password = password,
+                        UserInfo = ui
+                    };
 
-                    return Ok();
+
+                    ctx.LoginInfo.Add(li);
+                    ctx.SaveChanges();
+
+                    return li.ID;
                 }
                 catch
                 {
-                    return BadRequest("Error while registering");
+                    return 0;
                 }
             }
         }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using Entities;
+using WebServiceHost.Entities;
 
 namespace WebServiceHost.Database
 {
@@ -47,15 +47,15 @@ namespace WebServiceHost.Database
             modelBuilder.Entity<UserInfo>()
                 .Property(e => e.IsDriver).IsRequired().HasColumnName("is_driver");
 
-            modelBuilder.Entity<DeliveryLocation>()
+            modelBuilder.Entity<DeliverySite>()
                 .ToTable("delivery_locations", "public")
                 .HasKey(e => e.ID);
 
-            modelBuilder.Entity<DeliveryLocation>()
+            modelBuilder.Entity<DeliverySite>()
                 .Property(e => e.ID).IsRequired().HasColumnName("id").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<DeliveryLocation>()
+            modelBuilder.Entity<DeliverySite>()
                 .Property(e => e.Name).IsRequired().HasColumnName("name");
-            modelBuilder.Entity<DeliveryLocation>()
+            modelBuilder.Entity<DeliverySite>()
                 .Property(e => e.Address).IsOptional().HasColumnName("address");
 
             modelBuilder.Entity<ProductRequest>()
@@ -63,7 +63,7 @@ namespace WebServiceHost.Database
                 .HasKey(e => e.ID);
 
             modelBuilder.Entity<ProductRequest>()
-                .HasRequired(e => e.DeliveryLocation).WithMany(l => l.Products).HasForeignKey(e => e.SiteId).WillCascadeOnDelete();
+                .HasRequired(e => e.DeliverySite).WithMany(l => l.Products).HasForeignKey(e => e.SiteId).WillCascadeOnDelete();
             modelBuilder.Entity<ProductRequest>()
                 .HasOptional(e => e.RequestAssignment).WithRequired(upra => upra.ProductRequest).WillCascadeOnDelete();
 
@@ -101,7 +101,7 @@ namespace WebServiceHost.Database
 
         public DbSet<ProductRequest> ProductRequests { get; set; }
 
-        public DbSet<DeliveryLocation> DeliveryLocations { get; set; }
+        public DbSet<DeliverySite> DeliverySites { get; set; }
 
         public DbSet<UserProductRequestAssigment> RequestAssignments { get; set; }
     }

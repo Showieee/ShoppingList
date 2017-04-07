@@ -1,4 +1,4 @@
-﻿namespace Entities
+﻿namespace WebServiceHost.Entities
 {
     public class ProductRequest
     {
@@ -14,7 +14,7 @@
 
         public bool IsDelivered { get; set; }
 
-        public virtual DeliveryLocation DeliveryLocation { get; set; }
+        public virtual DeliverySite DeliverySite { get; set; }
 
         public virtual UserProductRequestAssigment RequestAssignment { get; set; }
     }
