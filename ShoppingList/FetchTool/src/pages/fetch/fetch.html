@@ -1,0 +1,34 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Lista produse
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let item of products" (click)="reserve(item)">
+
+            <!--<ion-avatar item-right>
+                <ion-icon style="color:red" name="close"></ion-icon>
+            </ion-avatar>-->
+            <h2>
+                {{item.name}} x {{item.quantity}}
+            </h2>
+            <p>{{item.site}}</p>
+            <p>{{item.driver}}</p>
+            <button ion-button clear large item-right>
+                <ion-icon color="danger" name="help-circle" *ngIf="item.isReserved == false"></ion-icon>
+                <ion-icon color="primary" name="checkmark-circle" *ngIf="item.isReserved == true"></ion-icon>
+            </button>
+
+        </ion-item>
+    </ion-list>
+
+    <ion-fab right bottom>
+        <button ion-fab color="blue" (click)="addOrder()">
+            <ion-icon name="settings"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

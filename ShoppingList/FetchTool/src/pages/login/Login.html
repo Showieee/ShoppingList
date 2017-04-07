@@ -1,0 +1,27 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-title>Login</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item no-border>
+        <ion-label>Remember me</ion-label>
+        <ion-checkbox color="dark" checked="true"></ion-checkbox>
+    </ion-item>
+
+    <button ion-button full (click)='login()'>Login</button>
+
+    <ion-fab right bottom>
+        <button ion-fab color="light" (click)='openSettings()'><ion-icon name="settings"></ion-icon></button>
+    </ion-fab>
+</ion-content>
